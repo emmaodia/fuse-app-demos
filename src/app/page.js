@@ -80,7 +80,7 @@ export default function Home() {
     const data = contractCall.encodeFunctionData("mint", [1]);
 
     const res = await fuseSDK.callContract(contractAddress, amount, data);
- toastId = toast.loading("processing..");
+    toastId = toast.loading("processing..");
 
     console.log(`UserOpHash: ${res?.userOpHash}`);
     console.log("Waiting for transaction...");
@@ -89,7 +89,7 @@ export default function Home() {
     console.log("Transaction Hash:", receipt?.transactionHash);
     toast.dismiss(toastId);
     toast.success(
-      `UserOp Successful 🔥 
+      `Token Mint Successful 🔥 
       ${receipt?.transactionHash}`,
       {
         id: toastId,
