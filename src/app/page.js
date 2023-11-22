@@ -69,28 +69,33 @@ export default function Home() {
   
     // You can use any other "to" address and any other "value"
     const contractAddress = "0xb8D4BD32d0c8C9012cF5E90D2acF37091a73B6F6"; // MTK Token Contract
-    const amount = parseEther("1");
+    const amount = parseEther("0");
 
     const provider = new ethers.providers.JsonRpcProvider("https://rpc.fuse.io/")
 
-    const contract = new ethers.Contract(
-      contractAddress,
-      config.ABI,
-      provider
-    );
-    // console.log(contract)
     const contractCall = new ethers.utils.Interface([
         "function mint(uint256 amount)",
       ]);
-    const data = contractCall.encodeFunctionData("mint", [amount]);
 
-    const res = await fuseSDK.callContract(data);
+    const data = contractCall.encodeFunctionData("mint", [1]);
+
+    const res = await fuseSDK.callContract(contractAddress, amount, data);
+ toastId = toast.loading("processing..");
 
     console.log(`UserOpHash: ${res?.userOpHash}`);
     console.log("Waiting for transaction...");
 
     const receipt = await res?.wait();
     console.log("Transaction Hash:", receipt?.transactionHash);
+    toast.dismiss(toastId);
+    toast.success(
+      `UserOp Successful 🔥 
+      ${receipt?.transactionHash}`,
+      {
+        id: toastId,
+        duration: 8000,
+      }
+    );
   };
 
   useEffect(() => {}, [address]);
