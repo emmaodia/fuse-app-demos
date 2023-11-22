@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import config from "../config.json";
+// import process.env from "../process.env.json";
 import { ethers } from "ethers";
 import { FuseSDK } from "../sdk";
 import { parseEther } from "ethers/lib/utils";
@@ -18,8 +18,10 @@ export default function Home() {
   const notify = () => toast("Here is your toast.");
 
   const main = async () => {
-    const credentials = new ethers.Wallet(config.PRIVATE_KEY);
-    const publicApiKey = config.PUBLIC_API_KEY;
+    const check = process.env.NEXT_PUBLIC_PRIVATE_KEY
+    console.log(check)
+    const credentials = new ethers.Wallet(process.env.NEXT_PUBLIC_PRIVATE_KEY);
+    const publicApiKey = process.env.NEXT_PUBLIC_PUBLIC_API_KEY;
     const fuseSDK = await FuseSDK.init(publicApiKey, credentials);
     const walletAddress = await fuseSDK.wallet.getSender();
     console.log(`Sender Address is ${fuseSDK.wallet.getSender()}`);
@@ -29,8 +31,9 @@ export default function Home() {
 
   const transfer = async () => {
     //You can use ethers.Wallet.createRandom to create a new Wallet.
-    const credentials = new ethers.Wallet(config.PRIVATE_KEY);
-    const publicApiKey = config.PUBLIC_API_KEY;
+    
+    const credentials = new ethers.Wallet(process.env.NEXT_PUBLIC_PRIVATE_KEY);
+    const publicApiKey = process.env.NEXT_PUBLIC_PUBLIC_API_KEY;
     const fuseSDK = await FuseSDK.init(publicApiKey, credentials, {
       withPaymaster: true,
     });
@@ -58,8 +61,8 @@ export default function Home() {
   };
 
   const mintTokens = async () => {
-    const credentials = new ethers.Wallet(config.PRIVATE_KEY);
-    const publicApiKey = config.PUBLIC_API_KEY;
+    const credentials = new ethers.Wallet(process.env.NEXT_PUBLIC_PRIVATE_KEY);
+    const publicApiKey = process.env.NEXT_PUBLIC_PUBLIC_API_KEY;
     const fuseSDK = await FuseSDK.init(publicApiKey, credentials, {
       withPaymaster: true,
     });
