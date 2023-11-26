@@ -18,8 +18,8 @@ export default function Home() {
   const notify = () => toast("Here is your toast.");
 
   const main = async () => {
-    const check = process.env.NEXT_PUBLIC_PRIVATE_KEY
-    console.log(check)
+    const check = process.env.NEXT_PUBLIC_PRIVATE_KEY;
+    console.log(check);
     const credentials = new ethers.Wallet(process.env.NEXT_PUBLIC_PRIVATE_KEY);
     const publicApiKey = process.env.NEXT_PUBLIC_PUBLIC_API_KEY;
     const fuseSDK = await FuseSDK.init(publicApiKey, credentials);
@@ -31,7 +31,7 @@ export default function Home() {
 
   const transfer = async () => {
     //You can use ethers.Wallet.createRandom to create a new Wallet.
-    
+
     const credentials = new ethers.Wallet(process.env.NEXT_PUBLIC_PRIVATE_KEY);
     const publicApiKey = process.env.NEXT_PUBLIC_PUBLIC_API_KEY;
     const fuseSDK = await FuseSDK.init(publicApiKey, credentials, {
@@ -66,16 +66,16 @@ export default function Home() {
     const fuseSDK = await FuseSDK.init(publicApiKey, credentials, {
       withPaymaster: true,
     });
-  
+
     // You can use any other "to" address and any other "value"
     const contractAddress = "0xb8D4BD32d0c8C9012cF5E90D2acF37091a73B6F6"; // MTK Token Contract
     const amount = parseEther("0");
 
-    const provider = new ethers.providers.JsonRpcProvider("https://rpc.fuse.io/")
+    // const provider = new ethers.providers.JsonRpcProvider("https://rpc.fuse.io/")
 
     const contractCall = new ethers.utils.Interface([
-        "function mint(uint256 amount)",
-      ]);
+      "function mint(uint256 amount)",
+    ]);
 
     const data = contractCall.encodeFunctionData("mint", [1]);
 
